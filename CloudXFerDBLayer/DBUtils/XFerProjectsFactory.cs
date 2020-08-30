@@ -5,12 +5,13 @@ namespace CloudXFerDBLayer.DBUtils
 {
     public class XFerProjectsFactory : IXFerProjectsFactory
     {
-        XFerProject IXFerProjectsFactory.CreateEmptyProject(string projectName)
+        public XFerProject CreateEmptyProject(string projectName)
         {
-            throw new System.NotImplementedException();
+            XFerProject newProject = new XFerProject() { ProjectConfig = new XFerProjectConfig() { ProjectName = projectName } };
+            return newProject;
         }
 
-        XFerProject IXFerProjectsFactory.GetProjectFromDB(string projectName)
+        public XFerProject GetProjectFromDB(string projectName)
         {
             throw new System.NotImplementedException();
         }

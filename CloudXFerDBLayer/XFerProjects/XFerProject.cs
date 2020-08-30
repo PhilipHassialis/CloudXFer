@@ -4,5 +4,7 @@ namespace CloudXFerDBLayer.XFerProjects
     {
         public XFerProjectConfig ProjectConfig { get; set; }
 
+        internal XFerProject() { }
+
     }
 }
