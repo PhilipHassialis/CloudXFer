@@ -1,5 +1,6 @@
 using CloudXFerDBLayer.DBUtils.Interfaces;
 using CloudXFerDBLayer.XFerProjects;
+using Microsoft.Data.Sqlite;
 
 namespace CloudXFerDBLayer.DBUtils
 {
@@ -13,7 +14,23 @@ namespace CloudXFerDBLayer.DBUtils
 
         public XFerProject GetProjectFromDB(string projectName)
         {
-            throw new System.NotImplementedException();
+            XFerProject loadedProject = null;
+            using (var dbconn = new SqliteConnection("Data Source=CloudXFerConfig.db"))
+            {
+                dbconn.Open();
+                var command = dbconn.CreateCommand();
+                command.CommandText = @"SELECT projectname from xferprojects WHERE projectname = $projname";
+                command.Parameters.AddWithValue("$projname", projectName);
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        loadedProject = new XFerProject() { ProjectConfig = new XFerProjectConfig() { ProjectName = reader["projectname"].ToString() } };
+                    }
+                }
+
+            }
+            return loadedProject;
         }
     }
 }
