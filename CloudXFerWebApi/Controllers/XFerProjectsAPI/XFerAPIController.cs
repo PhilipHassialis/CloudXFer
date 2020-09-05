@@ -10,11 +10,24 @@ namespace CloudXFerWebApi.Controllers.XFerProjectsAPI
     [Route("[controller]/[action]")]
     public class XFerAPIController : ControllerBase
     {
+        XFerProjectsHelpers helpers;
+
+        public XFerAPIController()
+        {
+            helpers = new XFerProjectsHelpers();
+        }
+
         [HttpGet]
         public IEnumerable<XFerProject> AllProjects()
         {
-            XFerProjectsHelpers helpers = new XFerProjectsHelpers();
+
             return helpers.GetAllProjects();
+        }
+
+        [HttpGet]
+        public void InsertRandoProject()
+        {
+            helpers.CreateXFerProject($"PROJ_{DateTime.Now.ToShortDateString()}");
         }
 
     }
